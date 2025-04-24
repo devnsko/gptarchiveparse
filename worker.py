@@ -4,7 +4,9 @@ jsonpath = fr"../gptchats/conversations.json"
 
 with open(jsonpath, "r") as file:
     chats = json.load(file)
-    print(chats[0]["mapping"]["7b0d8574-8536-4a11-b7c4-da368a1a6de4"]["message"]["content"])
+
+with open("example.json", "w") as f:
+    json.dump(chats[0], f, indent=4)
 
 # import json
 
