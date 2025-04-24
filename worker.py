@@ -1,28 +1,49 @@
 import json
 
-jsonpath = fr"../gptchats/conversations.json"
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.children = []
 
-with open(jsonpath, "r") as file:
-    chats = json.load(file)
+    def add_child(self, child_node):
+        self.children.append(child_node)
 
-with open("example.json", "w") as f:
-    json.dump(chats[0], f, indent=4)
+    def to_dict(self):
+        return {
+            "value": self.value,
+            "children": [child.to_dict() for child in self.children]
+        }
+    
+    def show(self, prefix=""):
+        print(prefix + self.value)
+        prefix += "*"
+        for i, child in enumerate(self.children):
+            if len(self.children) > 1:
+                child.show(prefix=str(i+1)+prefix)
+            else:
+                child.show(prefix=prefix)
 
-# import json
+    
+def ChatTree(map, id, root=None):
+    if root is None:
+        root = TreeNode("client-created-root")
+    
+    node = map.get(id)
+    if node:
+        children = node.get("children", [])
+        for child_id in children:
+            child_node = TreeNode(child_id)
+            root.add_child(child_node)
+            ChatTree(map, child_id, child_node)
+    
+    return root
 
-# def print_json_structure(data, indent=0):
-#     """Recursively print the structure of a JSON object with parameter names and data types."""
-#     if isinstance(data, dict):
-#         for key, value in data.items():
-#             print(" " * indent + f"{key}: {type(value).__name__}")
-#             print_json_structure(value, indent + 4)
-#     elif isinstance(data, list):
-#         print(" " * indent + f"List[{len(data)}]:")
-#         if len(data) > 0:
-#             print_json_structure(data[0], indent + 4)
+# def ShowTree(root, prefix=""):
+#     print(root)
 
-# jsonpath = fr"../gptchats/conversations.json"
 
-# with open(jsonpath, "r") as file:
-#     chats = json.load(file)
-#     print_json_structure(chats)
+with open("example.json", "r") as f:
+    data = json.load(f)
+    # chat: TreeNode = TreeNode("client-created-root")
+    chat: TreeNode = ChatTree(data["mapping"], "client-created-root")
+    chat.show()
