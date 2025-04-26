@@ -1,10 +1,9 @@
-import io
 import json
-import pprint
 
 class TreeNode:
-    def __init__(self, id: str, message: str | None = None):
+    def __init__(self, id: str, role: str | None = None, message: str | None = None):
         self.id: str = id
+        self.role = role
         self.message: str = message
         self.children = []
 
@@ -14,12 +13,13 @@ class TreeNode:
     def to_dict(self):
         return {
             "id": self.id,
+            "role": self.role,
             "message": self.message,
             "children": [child.to_dict() for child in self.children]
         }
     
     def show(self, prefix=""):
-        print(prefix + self.id)
+        print(prefix + self.id + " ? " + (self.role if self.role else 'None') + " = " + (self.message[:50].replace('\n', '') if self.message else ''))
         prefix += "*"
         for i, child in enumerate(self.children):
             if len(self.children) > 1:
@@ -27,122 +27,93 @@ class TreeNode:
             else:
                 child.show(prefix=prefix)
 
-def structure_to_dict(structure):
-    if isinstance(structure, frozenset):
-        result = {}
-        for item in structure:
-            if isinstance(item, tuple) and len(item) == 2 and isinstance(item[0], str):
-                key, val = item
-                result[key] = structure_to_dict(val)
-            else:
-                # Неизвестная структура, сохраняем как есть (например, примитив или тип)
-                result[str(item)] = "?"
-        return result
-    elif isinstance(structure, tuple):
-        return [structure_to_dict(x) for x in structure]
-    else:
-        return structure  # например, 'str', 'NoneType', 'int' и т.п.
-
-
-def compare_structures(s1, s2):
-    """Возвращает различающиеся ключи между двумя структурами-словами"""
-    d1 = structure_to_dict(s1)
-    d2 = structure_to_dict(s2)
-
-    def walk_diff(a, b, prefix=''):
-        diffs = []
-        a_keys = set(a.keys()) if isinstance(a, dict) else set()
-        b_keys = set(b.keys()) if isinstance(b, dict) else set()
-        all_keys = a_keys | b_keys
-        for key in all_keys:
-            full_key = f"{prefix}.{key}" if prefix else key
-            if key not in a:
-                diffs.append(f"+ {full_key} (only in B)")
-            elif key not in b:
-                diffs.append(f"- {full_key} (only in A)")
-            else:
-                if type(a[key]) != type(b[key]):
-                    diffs.append(f"! {full_key} (type mismatch: {type(a[key]).__name__} vs {type(b[key]).__name__})")
-                elif isinstance(a[key], dict):
-                    diffs += walk_diff(a[key], b[key], full_key)
-        return diffs
-
-    return walk_diff(d1, d2)
-
-def analyze_all_differences(structures):
-    structures = list(structures)
-    for i in range(len(structures)):
-        for j in range(i + 1, len(structures)):
-            print(f"\n📌 Сравнение структуры {i + 1} и {j + 1}:")
-            diffs = compare_structures(structures[i], structures[j])
-            if diffs:
-                for diff in diffs:
-                    print("  ", diff)
-            else:
-                print("  🔁 Структуры идентичны")
-
-
-def extract_structure(obj):
-    if isinstance(obj, dict):
-        return frozenset((k, extract_structure(v)) for k, v in obj.items())
-    elif isinstance(obj, list):
-        return frozenset(extract_structure(v) for v in obj)
-    else:
-        return type(obj).__name__
-
-def count_unique_structure(content_list):
-    structures = set()
-    for item in content_list:
-        structure = extract_structure(item)
-        structures.add(structure)
-    return structures
-    
 def ChatTree(map, id, root=None):
-    if root is None:
-        root = TreeNode("client-created-root")
-    
     node = map.get(id)
+    message = node.get("message", {})
+    msgText = None
+    content = message.get("content", {}) if message else None
+    if content and (content.get("content_type", "") == "text" or content.get("content_type", "") == "multimodal_text"):
+        parts = content.get("parts", [])
+        if isinstance(parts, list):
+            msgText = '\n'.join(part if isinstance(part, str) else "file" for part in parts)
+    role = None
+    if message:
+        role = message.get("author", {}).get("role", "") if message.get("author", {}) else None
+    if root is None:
+        root = TreeNode(id, role, msgText)
+    
     if node:
         children = node.get("children", [])
         for child_id in children:
-            child_node = TreeNode(child_id)
+            child = map.get(child_id)
+            child_message = child.get("message", {})
+            child_msgText = None
+            content = child.get("message", {}).get("content", {}) if child.get("message", {}) else None
+            if content and (content.get("content_type", "") == "text" or content.get("content_type", "") == "multimodal_text"):
+                parts = content.get("parts", [])
+                if isinstance(parts, list):
+                    child_msgText = '\n'.join(part if isinstance(part, str) else "file" for part in parts)
+            child_role = None
+            if child_message:
+                child_role = child_message.get("author", {}).get("role", "") if child_message.get("author", {}) else None
+            
+            child_node = TreeNode(child_id, child_role, child_msgText)
             root.add_child(child_node)
             ChatTree(map, child_id, child_node)
     
     return root
 
+def getConversationMessages(conversation):
+    messages = []
+    currentNode = conversation.get("current_node", {})
+    while currentNode is not None:
+        node = conversation["mapping"][currentNode]
+        node_message = node.get("message", {})
+        node_content = node_message.get("content", {}) if node_message else None
+        node_content_parts = node_content.get("parts", "") if node_content else None
+        if (node_message and 
+            node_content and 
+            node_content_parts and
+            len(node_content_parts) > 0 and
+            (node_message["author"]["role"] is not "system" or 
+             node_message["metadata"].get("is_user_system_message", False))):
+            
+            author = node_message["author"]["role"]
+            if author is "assistant" or author is "tool":
+                author = "ChatGPT"
+            elif author is "system" and node_message["metadata"].get("is_user_system_message", False):
+                author = "Custom user info"
+            
+            if node_content["content_type"] is "text" or  node_content["content_type"] is "multimodal_text":
+                parts = []
+                for i in range(len(node_content_parts)):
+                    part = node_content["parts"][i]
+                    if type(part is str and len(part) > 0):
+                        parts.append({"text": part})
+                    elif part["content_type"] is "audio_transcription":
+                        parts.append({"transcript": part["text"]})
+                    elif (part["content_type"] is "audio_asset_pointer" or
+                          part["content_type"] is "image_asset_pointer" or
+                          part["content_type"] is "video_container_asset_pointer"):
+                        parts.append({"asset": part})
+                    elif part["content_type"] is "real_time_user_audio_video_asset_pointer":
+                        if part.get("audio_asset_pointer", False):
+                            parts.append({"asset": part["audio_asset_pointer"]})
+                        if part.get("video_container_asset_pointer", False):
+                            parts.append({"asset": part["video_container_asset_pointer"]})
+                        for j in range(len(part.get("frames_asset_pointers", {}))):
+                            parts.append({"asset": part["frames_asset_pointers"][j]})
+            if len(parts) > 0:
+                messages.append({"author": author, "parts": parts})
+        currentNode = node["parent"]
+    return messages.reverse()
+
+
+
+
 with open("example.json", "r") as f:
     data = json.load(f)
     # chat: TreeNode = TreeNode("client-created-root")
     chat: TreeNode = ChatTree(data["mapping"], "client-created-root")
+    print(data["title"])
     chat.show()
-    
-    objs = []
-
-    def collect_objects(node, mapping):
-        if node.id in mapping:
-            objs.append(mapping[node.id]["message"])
-        for child in node.children:
-            collect_objects(child, mapping)
-
-    collect_objects(chat, data["mapping"])
-    uni = count_unique_structure(objs)
-    
-with open("structure_report.txt", "w", encoding="utf-8") as output:
-    output.write(f"\nВсего уникальных структур: {len(uni)}\n")
-    
-    for idx, struct in enumerate(uni, 1):
-        output.write(f"\n--- Структура {idx} ---\n")
-        output.write(pprint.pformat(structure_to_dict(struct), width=120))
-        output.write("\n")
-    
-    structures = list(uni)
-    for i in range(len(structures)):
-        for j in range(i + 1, len(structures)):
-            output.write(f"\n📌 Сравнение структуры {i + 1} и {j + 1}:\n")
-            diffs = compare_structures(structures[i], structures[j])
-            if diffs:
-                for diff in diffs:
-                    output.write("  " + diff + "\n")
-            else:
-                output.write("  🔁 Структуры идентичны\n")
