@@ -1,0 +1,1289 @@
+
+Всего уникальных структур: 14
+
+--- Структура 1 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str',
+             'parts': {"frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')})": '?',
+                       'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'attachments': {"frozenset({('file_token_size', 'int'), ('size', 'int'), ('id', 'str'), ('mime_type', 'str'), ('name', 'str')})": '?',
+                              "frozenset({('size', 'int'), ('id', 'str'), ('mime_type', 'str'), ('name', 'str'), ('width', 'int'), ('height', 'int')})": '?'},
+              'message_source': 'NoneType',
+              'message_type': 'NoneType',
+              'request_id': 'str',
+              'selected_github_repos': {},
+              'serialization_metadata': {'custom_symbol_offsets': {}},
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 2 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str', 'parts': {'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'bool',
+ 'id': 'str',
+ 'metadata': {'default_model_slug': 'str',
+              'is_visually_hidden_from_conversation': 'bool',
+              'message_type': 'NoneType',
+              'model_slug': 'str',
+              'parent_id': 'str',
+              'rebase_system_message': 'bool',
+              'request_id': 'str',
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 3 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str', 'parts': {'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'message_source': 'NoneType',
+              'message_type': 'NoneType',
+              'paragen_variant_choice': 'str',
+              'paragen_variants_info': {'conversation_id': 'str',
+                                        'display_treatment': 'str',
+                                        'num_variants_in_stream': 'int',
+                                        'type': 'str'},
+              'request_id': 'str',
+              'selected_github_repos': {},
+              'serialization_metadata': {'custom_symbol_offsets': {}},
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 4 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str', 'parts': {'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'default_model_slug': 'str',
+              'message_type': 'NoneType',
+              'model_slug': 'str',
+              'parent_id': 'str',
+              'request_id': 'str',
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 5 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str', 'user_instructions': 'str', 'user_profile': 'str'},
+ 'create_time': 'NoneType',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'is_user_system_message': 'bool',
+              'is_visually_hidden_from_conversation': 'bool',
+              'user_context_message_data': {'about_model_message': 'str', 'about_user_message': 'str'}},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 6 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str', 'parts': {'str': '?'}},
+ 'create_time': 'NoneType',
+ 'end_turn': 'bool',
+ 'id': 'str',
+ 'metadata': {'is_visually_hidden_from_conversation': 'bool'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 7 ---
+'NoneType'
+
+--- Структура 8 ---
+{'author': {'metadata': {}, 'name': 'str', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'assets': 'NoneType', 'content_type': 'str', 'result': 'str', 'summary': 'str', 'tether_id': 'NoneType'},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'command': 'str',
+              'default_model_slug': 'str',
+              'message_type': 'NoneType',
+              'model_slug': 'str',
+              'parent_id': 'str',
+              'request_id': 'str',
+              'status': 'str',
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 9 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str', 'parts': {'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'message_source': 'NoneType',
+              'message_type': 'NoneType',
+              'request_id': 'str',
+              'selected_github_repos': {},
+              'serialization_metadata': {'custom_symbol_offsets': {}},
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 10 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str',
+             'parts': {"frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')})": '?',
+                       'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'attachments': {"frozenset({('size', 'int'), ('id', 'str'), ('mime_type', 'str'), ('name', 'str'), ('width', 'int'), ('height', 'int')})": '?'},
+              'message_source': 'NoneType',
+              'message_type': 'NoneType',
+              'request_id': 'str',
+              'selected_github_repos': {},
+              'serialization_metadata': {'custom_symbol_offsets': {}},
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 11 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str',
+             'parts': {"frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')})": '?',
+                       'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'attachments': {"frozenset({('size', 'int'), ('id', 'str'), ('mime_type', 'str'), ('name', 'str'), ('width', 'int'), ('height', 'int')})": '?'},
+              'message_source': 'NoneType',
+              'message_type': 'NoneType',
+              'request_id': 'str',
+              'serialization_metadata': {'custom_symbol_offsets': {}},
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 12 ---
+{'author': {'metadata': {}, 'name': 'str', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str', 'parts': {'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'default_model_slug': 'str',
+              'is_visually_hidden_from_conversation': 'bool',
+              'message_type': 'NoneType',
+              'model_slug': 'str',
+              'parent_id': 'str',
+              'request_id': 'str',
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 13 ---
+{'author': {'metadata': {}, 'name': 'str', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str',
+             'domain': 'str',
+             'tether_id': 'NoneType',
+             'text': 'str',
+             'title': 'str',
+             'url': 'str'},
+ 'create_time': 'float',
+ 'end_turn': 'NoneType',
+ 'id': 'str',
+ 'metadata': {'command': 'str',
+              'default_model_slug': 'str',
+              'is_visually_hidden_from_conversation': 'bool',
+              'message_type': 'NoneType',
+              'model_slug': 'str',
+              'parent_id': 'str',
+              'request_id': 'str',
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+--- Структура 14 ---
+{'author': {'metadata': {}, 'name': 'NoneType', 'role': 'str'},
+ 'channel': 'NoneType',
+ 'content': {'content_type': 'str', 'parts': {'str': '?'}},
+ 'create_time': 'float',
+ 'end_turn': 'bool',
+ 'id': 'str',
+ 'metadata': {'citations': {},
+              'content_references': {},
+              'default_model_slug': 'str',
+              'finish_details': {'stop_tokens': {'int': '?'}, 'type': 'str'},
+              'is_complete': 'bool',
+              'message_type': 'NoneType',
+              'model_slug': 'str',
+              'parent_id': 'str',
+              'request_id': 'str',
+              'timestamp_': 'str'},
+ 'recipient': 'str',
+ 'status': 'str',
+ 'update_time': 'NoneType',
+ 'weight': 'float'}
+
+📌 Сравнение структуры 1 и 2:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.rebase_system_message (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 1 и 3:
+  + metadata.paragen_variant_choice (only in B)
+  + metadata.paragen_variants_info (only in B)
+  - metadata.attachments (only in A)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 1 и 4:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.default_model_slug (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 1 и 5:
+  + metadata.user_context_message_data (only in B)
+  - metadata.selected_github_repos (only in A)
+  - metadata.timestamp_ (only in A)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  - metadata.message_type (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  - metadata.attachments (only in A)
+  - metadata.request_id (only in A)
+  + metadata.is_user_system_message (only in B)
+  - content.parts (only in A)
+  + content.user_profile (only in B)
+  + content.user_instructions (only in B)
+
+📌 Сравнение структуры 1 и 6:
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  - metadata.selected_github_repos (only in A)
+  - metadata.timestamp_ (only in A)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  - metadata.message_type (only in A)
+  - metadata.attachments (only in A)
+  - metadata.request_id (only in A)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 1 и 7:
+  - author (only in A)
+  - weight (only in A)
+  - content (only in A)
+  - recipient (only in A)
+  - id (only in A)
+  - channel (only in A)
+  - update_time (only in A)
+  - status (only in A)
+  - end_turn (only in A)
+  - create_time (only in A)
+  - metadata (only in A)
+
+📌 Сравнение структуры 1 и 8:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.command (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.status (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  + content.summary (only in B)
+  - content.parts (only in A)
+  + content.result (only in B)
+  + content.assets (only in B)
+  + content.tether_id (only in B)
+
+📌 Сравнение структуры 1 и 9:
+  - metadata.attachments (only in A)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 1 и 10:
+  - metadata.attachments.frozenset({('file_token_size', 'int'), ('size', 'int'), ('id', 'str'), ('mime_type', 'str'), ('name', 'str')}) (only in A)
+
+📌 Сравнение структуры 1 и 11:
+  - metadata.selected_github_repos (only in A)
+  - metadata.attachments.frozenset({('file_token_size', 'int'), ('size', 'int'), ('id', 'str'), ('mime_type', 'str'), ('name', 'str')}) (only in A)
+
+📌 Сравнение структуры 1 и 12:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 1 и 13:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.command (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 1 и 14:
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.citations (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.is_complete (only in B)
+  - metadata.attachments (only in A)
+  + metadata.finish_details (only in B)
+  + metadata.model_slug (only in B)
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  + metadata.content_references (only in B)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 2 и 3:
+  - metadata.parent_id (only in A)
+  + metadata.paragen_variant_choice (only in B)
+  + metadata.selected_github_repos (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.rebase_system_message (only in A)
+  + metadata.paragen_variants_info (only in B)
+  - metadata.model_slug (only in A)
+
+📌 Сравнение структуры 2 и 4:
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  - metadata.rebase_system_message (only in A)
+
+📌 Сравнение структуры 2 и 5:
+  + metadata.user_context_message_data (only in B)
+  - metadata.parent_id (only in A)
+  - metadata.timestamp_ (only in A)
+  - metadata.message_type (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.rebase_system_message (only in A)
+  - metadata.request_id (only in A)
+  - metadata.model_slug (only in A)
+  + metadata.is_user_system_message (only in B)
+  - content.parts (only in A)
+  + content.user_profile (only in B)
+  + content.user_instructions (only in B)
+
+📌 Сравнение структуры 2 и 6:
+  - metadata.parent_id (only in A)
+  - metadata.timestamp_ (only in A)
+  - metadata.message_type (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.rebase_system_message (only in A)
+  - metadata.request_id (only in A)
+  - metadata.model_slug (only in A)
+
+📌 Сравнение структуры 2 и 7:
+  - author (only in A)
+  - weight (only in A)
+  - content (only in A)
+  - recipient (only in A)
+  - id (only in A)
+  - update_time (only in A)
+  - channel (only in A)
+  - status (only in A)
+  - end_turn (only in A)
+  - create_time (only in A)
+  - metadata (only in A)
+
+📌 Сравнение структуры 2 и 8:
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.command (only in B)
+  - metadata.rebase_system_message (only in A)
+  + metadata.status (only in B)
+  + content.summary (only in B)
+  - content.parts (only in A)
+  + content.result (only in B)
+  + content.assets (only in B)
+  + content.tether_id (only in B)
+
+📌 Сравнение структуры 2 и 9:
+  - metadata.parent_id (only in A)
+  + metadata.selected_github_repos (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.rebase_system_message (only in A)
+  - metadata.model_slug (only in A)
+
+📌 Сравнение структуры 2 и 10:
+  - metadata.parent_id (only in A)
+  + metadata.selected_github_repos (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.rebase_system_message (only in A)
+  + metadata.attachments (only in B)
+  - metadata.model_slug (only in A)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 2 и 11:
+  - metadata.parent_id (only in A)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.rebase_system_message (only in A)
+  + metadata.attachments (only in B)
+  - metadata.model_slug (only in A)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 2 и 12:
+  - metadata.rebase_system_message (only in A)
+
+📌 Сравнение структуры 2 и 13:
+  + metadata.command (only in B)
+  - metadata.rebase_system_message (only in A)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 2 и 14:
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.citations (only in B)
+  + metadata.is_complete (only in B)
+  - metadata.rebase_system_message (only in A)
+  + metadata.finish_details (only in B)
+  + metadata.content_references (only in B)
+
+📌 Сравнение структуры 3 и 4:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.default_model_slug (only in B)
+  - metadata.paragen_variants_info (only in A)
+  + metadata.model_slug (only in B)
+
+📌 Сравнение структуры 3 и 5:
+  + metadata.user_context_message_data (only in B)
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.timestamp_ (only in A)
+  - metadata.selected_github_repos (only in A)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  - metadata.message_type (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  - metadata.paragen_variants_info (only in A)
+  - metadata.request_id (only in A)
+  + metadata.is_user_system_message (only in B)
+  - content.parts (only in A)
+  + content.user_profile (only in B)
+  + content.user_instructions (only in B)
+
+📌 Сравнение структуры 3 и 6:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.timestamp_ (only in A)
+  - metadata.selected_github_repos (only in A)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  - metadata.message_type (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  - metadata.paragen_variants_info (only in A)
+  - metadata.request_id (only in A)
+
+📌 Сравнение структуры 3 и 7:
+  - author (only in A)
+  - weight (only in A)
+  - content (only in A)
+  - recipient (only in A)
+  - id (only in A)
+  - channel (only in A)
+  - update_time (only in A)
+  - status (only in A)
+  - end_turn (only in A)
+  - create_time (only in A)
+  - metadata (only in A)
+
+📌 Сравнение структуры 3 и 8:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.command (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.paragen_variants_info (only in A)
+  + metadata.status (only in B)
+  + metadata.model_slug (only in B)
+  + content.summary (only in B)
+  - content.parts (only in A)
+  + content.result (only in B)
+  + content.assets (only in B)
+  + content.tether_id (only in B)
+
+📌 Сравнение структуры 3 и 9:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.paragen_variants_info (only in A)
+
+📌 Сравнение структуры 3 и 10:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.paragen_variants_info (only in A)
+  + metadata.attachments (only in B)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 3 и 11:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.selected_github_repos (only in A)
+  - metadata.paragen_variants_info (only in A)
+  + metadata.attachments (only in B)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 3 и 12:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.paragen_variants_info (only in A)
+  + metadata.model_slug (only in B)
+
+📌 Сравнение структуры 3 и 13:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.command (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.paragen_variants_info (only in A)
+  + metadata.model_slug (only in B)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 3 и 14:
+  - metadata.paragen_variant_choice (only in A)
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.citations (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.is_complete (only in B)
+  - metadata.paragen_variants_info (only in A)
+  + metadata.finish_details (only in B)
+  + metadata.content_references (only in B)
+  + metadata.model_slug (only in B)
+
+📌 Сравнение структуры 4 и 5:
+  + metadata.user_context_message_data (only in B)
+  - metadata.parent_id (only in A)
+  - metadata.timestamp_ (only in A)
+  - metadata.message_type (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  - metadata.default_model_slug (only in A)
+  - metadata.request_id (only in A)
+  - metadata.model_slug (only in A)
+  + metadata.is_user_system_message (only in B)
+  - content.parts (only in A)
+  + content.user_profile (only in B)
+  + content.user_instructions (only in B)
+
+📌 Сравнение структуры 4 и 6:
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  - metadata.parent_id (only in A)
+  - metadata.timestamp_ (only in A)
+  - metadata.request_id (only in A)
+  - metadata.message_type (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.model_slug (only in A)
+
+📌 Сравнение структуры 4 и 7:
+  - author (only in A)
+  - weight (only in A)
+  - content (only in A)
+  - recipient (only in A)
+  - id (only in A)
+  - channel (only in A)
+  - update_time (only in A)
+  - status (only in A)
+  - end_turn (only in A)
+  - create_time (only in A)
+  - metadata (only in A)
+
+📌 Сравнение структуры 4 и 8:
+  + metadata.command (only in B)
+  + metadata.status (only in B)
+  + content.summary (only in B)
+  - content.parts (only in A)
+  + content.result (only in B)
+  + content.assets (only in B)
+  + content.tether_id (only in B)
+
+📌 Сравнение структуры 4 и 9:
+  - metadata.parent_id (only in A)
+  + metadata.selected_github_repos (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.default_model_slug (only in A)
+  - metadata.model_slug (only in A)
+
+📌 Сравнение структуры 4 и 10:
+  - metadata.parent_id (only in A)
+  + metadata.selected_github_repos (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.default_model_slug (only in A)
+  + metadata.attachments (only in B)
+  - metadata.model_slug (only in A)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 4 и 11:
+  - metadata.parent_id (only in A)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.default_model_slug (only in A)
+  + metadata.attachments (only in B)
+  - metadata.model_slug (only in A)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 4 и 12:
+  + metadata.is_visually_hidden_from_conversation (only in B)
+
+📌 Сравнение структуры 4 и 13:
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.command (only in B)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 4 и 14:
+  + metadata.citations (only in B)
+  + metadata.is_complete (only in B)
+  + metadata.finish_details (only in B)
+  + metadata.content_references (only in B)
+
+📌 Сравнение структуры 5 и 6:
+  - metadata.user_context_message_data (only in A)
+  - metadata.is_user_system_message (only in A)
+  + content.parts (only in B)
+  - content.user_profile (only in A)
+  - content.user_instructions (only in A)
+
+📌 Сравнение структуры 5 и 7:
+  - author (only in A)
+  - weight (only in A)
+  - content (only in A)
+  - recipient (only in A)
+  - id (only in A)
+  - channel (only in A)
+  - update_time (only in A)
+  - status (only in A)
+  - end_turn (only in A)
+  - create_time (only in A)
+  - metadata (only in A)
+
+📌 Сравнение структуры 5 и 8:
+  - metadata.user_context_message_data (only in A)
+  + metadata.parent_id (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.command (only in B)
+  + metadata.request_id (only in B)
+  + metadata.status (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+  - metadata.is_user_system_message (only in A)
+  + content.summary (only in B)
+  + content.result (only in B)
+  - content.user_instructions (only in A)
+  - content.user_profile (only in A)
+  + content.assets (only in B)
+  + content.tether_id (only in B)
+
+📌 Сравнение структуры 5 и 9:
+  - metadata.user_context_message_data (only in A)
+  + metadata.selected_github_repos (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.request_id (only in B)
+  - metadata.is_user_system_message (only in A)
+  + content.parts (only in B)
+  - content.user_profile (only in A)
+  - content.user_instructions (only in A)
+
+📌 Сравнение структуры 5 и 10:
+  - metadata.user_context_message_data (only in A)
+  + metadata.selected_github_repos (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.attachments (only in B)
+  + metadata.request_id (only in B)
+  - metadata.is_user_system_message (only in A)
+  + content.parts (only in B)
+  - content.user_profile (only in A)
+  - content.user_instructions (only in A)
+
+📌 Сравнение структуры 5 и 11:
+  - metadata.user_context_message_data (only in A)
+  + metadata.timestamp_ (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.attachments (only in B)
+  + metadata.request_id (only in B)
+  - metadata.is_user_system_message (only in A)
+  + content.parts (only in B)
+  - content.user_profile (only in A)
+  - content.user_instructions (only in A)
+
+📌 Сравнение структуры 5 и 12:
+  - metadata.user_context_message_data (only in A)
+  + metadata.parent_id (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.message_type (only in B)
+  + metadata.request_id (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+  - metadata.is_user_system_message (only in A)
+  + content.parts (only in B)
+  - content.user_profile (only in A)
+  - content.user_instructions (only in A)
+
+📌 Сравнение структуры 5 и 13:
+  - metadata.user_context_message_data (only in A)
+  + metadata.parent_id (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.message_type (only in B)
+  + metadata.command (only in B)
+  + metadata.request_id (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+  - metadata.is_user_system_message (only in A)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.user_instructions (only in A)
+  + content.text (only in B)
+  - content.user_profile (only in A)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 5 и 14:
+  - metadata.user_context_message_data (only in A)
+  + metadata.parent_id (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.citations (only in B)
+  + metadata.request_id (only in B)
+  + metadata.is_complete (only in B)
+  + metadata.finish_details (only in B)
+  + metadata.content_references (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+  - metadata.is_user_system_message (only in A)
+  + content.parts (only in B)
+  - content.user_profile (only in A)
+  - content.user_instructions (only in A)
+
+📌 Сравнение структуры 6 и 7:
+  - author (only in A)
+  - weight (only in A)
+  - content (only in A)
+  - recipient (only in A)
+  - id (only in A)
+  - update_time (only in A)
+  - channel (only in A)
+  - status (only in A)
+  - end_turn (only in A)
+  - create_time (only in A)
+  - metadata (only in A)
+
+📌 Сравнение структуры 6 и 8:
+  + metadata.parent_id (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.command (only in B)
+  + metadata.request_id (only in B)
+  + metadata.status (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+  + content.summary (only in B)
+  - content.parts (only in A)
+  + content.result (only in B)
+  + content.assets (only in B)
+  + content.tether_id (only in B)
+
+📌 Сравнение структуры 6 и 9:
+  + metadata.selected_github_repos (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.request_id (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+
+📌 Сравнение структуры 6 и 10:
+  + metadata.selected_github_repos (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.attachments (only in B)
+  + metadata.request_id (only in B)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 6 и 11:
+  + metadata.timestamp_ (only in B)
+  + metadata.request_id (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  + metadata.message_type (only in B)
+  + metadata.attachments (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 6 и 12:
+  + metadata.parent_id (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.message_type (only in B)
+  + metadata.request_id (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+
+📌 Сравнение структуры 6 и 13:
+  + metadata.parent_id (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.message_type (only in B)
+  + metadata.command (only in B)
+  + metadata.request_id (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 6 и 14:
+  + metadata.parent_id (only in B)
+  + metadata.timestamp_ (only in B)
+  + metadata.message_type (only in B)
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.citations (only in B)
+  + metadata.request_id (only in B)
+  + metadata.is_complete (only in B)
+  + metadata.finish_details (only in B)
+  + metadata.content_references (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+
+📌 Сравнение структуры 7 и 8:
+  + author (only in B)
+  + weight (only in B)
+  + content (only in B)
+  + recipient (only in B)
+  + id (only in B)
+  + update_time (only in B)
+  + channel (only in B)
+  + status (only in B)
+  + end_turn (only in B)
+  + create_time (only in B)
+  + metadata (only in B)
+
+📌 Сравнение структуры 7 и 9:
+  + author (only in B)
+  + weight (only in B)
+  + content (only in B)
+  + recipient (only in B)
+  + id (only in B)
+  + channel (only in B)
+  + update_time (only in B)
+  + status (only in B)
+  + end_turn (only in B)
+  + create_time (only in B)
+  + metadata (only in B)
+
+📌 Сравнение структуры 7 и 10:
+  + author (only in B)
+  + weight (only in B)
+  + content (only in B)
+  + recipient (only in B)
+  + id (only in B)
+  + channel (only in B)
+  + update_time (only in B)
+  + status (only in B)
+  + end_turn (only in B)
+  + create_time (only in B)
+  + metadata (only in B)
+
+📌 Сравнение структуры 7 и 11:
+  + author (only in B)
+  + weight (only in B)
+  + content (only in B)
+  + recipient (only in B)
+  + id (only in B)
+  + channel (only in B)
+  + update_time (only in B)
+  + status (only in B)
+  + end_turn (only in B)
+  + create_time (only in B)
+  + metadata (only in B)
+
+📌 Сравнение структуры 7 и 12:
+  + author (only in B)
+  + weight (only in B)
+  + content (only in B)
+  + recipient (only in B)
+  + id (only in B)
+  + update_time (only in B)
+  + channel (only in B)
+  + status (only in B)
+  + end_turn (only in B)
+  + create_time (only in B)
+  + metadata (only in B)
+
+📌 Сравнение структуры 7 и 13:
+  + author (only in B)
+  + weight (only in B)
+  + content (only in B)
+  + recipient (only in B)
+  + id (only in B)
+  + update_time (only in B)
+  + channel (only in B)
+  + status (only in B)
+  + end_turn (only in B)
+  + create_time (only in B)
+  + metadata (only in B)
+
+📌 Сравнение структуры 7 и 14:
+  + author (only in B)
+  + weight (only in B)
+  + content (only in B)
+  + recipient (only in B)
+  + id (only in B)
+  + update_time (only in B)
+  + channel (only in B)
+  + status (only in B)
+  + end_turn (only in B)
+  + create_time (only in B)
+  + metadata (only in B)
+
+📌 Сравнение структуры 8 и 9:
+  - metadata.parent_id (only in A)
+  + metadata.selected_github_repos (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.command (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.status (only in A)
+  - metadata.model_slug (only in A)
+  - content.summary (only in A)
+  - content.result (only in A)
+  + content.parts (only in B)
+  - content.assets (only in A)
+  - content.tether_id (only in A)
+
+📌 Сравнение структуры 8 и 10:
+  - metadata.parent_id (only in A)
+  + metadata.selected_github_repos (only in B)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.command (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.status (only in A)
+  + metadata.attachments (only in B)
+  - metadata.model_slug (only in A)
+  - content.summary (only in A)
+  - content.result (only in A)
+  + content.parts (only in B)
+  - content.assets (only in A)
+  - content.tether_id (only in A)
+
+📌 Сравнение структуры 8 и 11:
+  - metadata.parent_id (only in A)
+  + metadata.serialization_metadata (only in B)
+  + metadata.message_source (only in B)
+  - metadata.command (only in A)
+  - metadata.default_model_slug (only in A)
+  - metadata.status (only in A)
+  + metadata.attachments (only in B)
+  - metadata.model_slug (only in A)
+  - content.summary (only in A)
+  - content.result (only in A)
+  + content.parts (only in B)
+  - content.assets (only in A)
+  - content.tether_id (only in A)
+
+📌 Сравнение структуры 8 и 12:
+  - metadata.command (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  - metadata.status (only in A)
+  - content.summary (only in A)
+  - content.result (only in A)
+  + content.parts (only in B)
+  - content.assets (only in A)
+  - content.tether_id (only in A)
+
+📌 Сравнение структуры 8 и 13:
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  - metadata.status (only in A)
+  - content.summary (only in A)
+  - content.result (only in A)
+  + content.url (only in B)
+  + content.title (only in B)
+  + content.text (only in B)
+  - content.assets (only in A)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 8 и 14:
+  - metadata.command (only in A)
+  + metadata.citations (only in B)
+  + metadata.is_complete (only in B)
+  + metadata.finish_details (only in B)
+  - metadata.status (only in A)
+  + metadata.content_references (only in B)
+  - content.summary (only in A)
+  - content.result (only in A)
+  + content.parts (only in B)
+  - content.assets (only in A)
+  - content.tether_id (only in A)
+
+📌 Сравнение структуры 9 и 10:
+  + metadata.attachments (only in B)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 9 и 11:
+  - metadata.selected_github_repos (only in A)
+  + metadata.attachments (only in B)
+  + content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in B)
+
+📌 Сравнение структуры 9 и 12:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+
+📌 Сравнение структуры 9 и 13:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.command (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.model_slug (only in B)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 9 и 14:
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.citations (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.is_complete (only in B)
+  + metadata.finish_details (only in B)
+  + metadata.model_slug (only in B)
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  + metadata.content_references (only in B)
+
+📌 Сравнение структуры 10 и 11:
+  - metadata.selected_github_repos (only in A)
+
+📌 Сравнение структуры 10 и 12:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 10 и 13:
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.command (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 10 и 14:
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.citations (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.is_complete (only in B)
+  - metadata.attachments (only in A)
+  + metadata.finish_details (only in B)
+  + metadata.model_slug (only in B)
+  - metadata.selected_github_repos (only in A)
+  + metadata.parent_id (only in B)
+  + metadata.content_references (only in B)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 11 и 12:
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 11 и 13:
+  + metadata.parent_id (only in B)
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.is_visually_hidden_from_conversation (only in B)
+  + metadata.command (only in B)
+  + metadata.default_model_slug (only in B)
+  - metadata.attachments (only in A)
+  + metadata.model_slug (only in B)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 11 и 14:
+  - metadata.serialization_metadata (only in A)
+  - metadata.message_source (only in A)
+  + metadata.citations (only in B)
+  + metadata.default_model_slug (only in B)
+  + metadata.is_complete (only in B)
+  - metadata.attachments (only in A)
+  + metadata.finish_details (only in B)
+  + metadata.model_slug (only in B)
+  + metadata.parent_id (only in B)
+  + metadata.content_references (only in B)
+  - content.parts.frozenset({('asset_pointer', 'str'), ('content_type', 'str'), ('metadata', frozenset({('emu_patches_override', 'NoneType'), ('gizmo', 'NoneType'), ('dalle', 'NoneType'), ('asset_pointer_link', 'NoneType'), ('container_pixel_height', 'NoneType'), ('container_pixel_width', 'NoneType'), ('generation', 'NoneType'), ('emu_omit_glimpse_image', 'NoneType'), ('sanitized', 'bool'), ('watermarked_asset_pointer', 'NoneType')})), ('size_bytes', 'int'), ('width', 'int'), ('height', 'int'), ('fovea', 'NoneType')}) (only in A)
+
+📌 Сравнение структуры 12 и 13:
+  + metadata.command (only in B)
+  + content.url (only in B)
+  + content.title (only in B)
+  - content.parts (only in A)
+  + content.text (only in B)
+  + content.tether_id (only in B)
+  + content.domain (only in B)
+
+📌 Сравнение структуры 12 и 14:
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  + metadata.citations (only in B)
+  + metadata.is_complete (only in B)
+  + metadata.finish_details (only in B)
+  + metadata.content_references (only in B)
+
+📌 Сравнение структуры 13 и 14:
+  - metadata.is_visually_hidden_from_conversation (only in A)
+  - metadata.command (only in A)
+  + metadata.citations (only in B)
+  + metadata.is_complete (only in B)
+  + metadata.finish_details (only in B)
+  + metadata.content_references (only in B)
+  - content.domain (only in A)
+  + content.parts (only in B)
+  - content.text (only in A)
+  - content.url (only in A)
+  - content.tether_id (only in A)
+  - content.title (only in A)
