@@ -6,8 +6,12 @@
     <title>Document</title>
 </head>
 <body>
-    <script>  
-        function getConversationMessages(conversation) {
+    <script> 
+      var jsonData = ""
+      var assetsJson = ""
+      
+    
+      function getConversationMessages(conversation) {
             var messages = [];
             var currentNode = conversation.current_node;
             while (currentNode != null) {

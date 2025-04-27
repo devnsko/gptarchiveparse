@@ -1,68 +1,8 @@
+import re
 import json
+import numpy as np
+from transformers import AutoTokenizer
 from sentence_transformers import SentenceTransformer
-
-class TreeNode:
-    def __init__(self, id: str, role: str | None = None, message: str | None = None):
-        self.id: str = id
-        self.role = role
-        self.message: str = message
-        self.children = []
-
-    def add_child(self, child_node):
-        self.children.append(child_node)
-
-    def to_dict(self):
-        return {
-            "id": self.id,
-            "role": self.role,
-            "message": self.message,
-            "children": [child.to_dict() for child in self.children]
-        }
-    
-    def show(self, prefix=""):
-        print(prefix + self.id + " ? " + (self.role if self.role else 'None') + " = " + (self.message[:50].replace('\n', '') if self.message else ''))
-        prefix += "*"
-        for i, child in enumerate(self.children):
-            if len(self.children) > 1:
-                child.show(prefix=str(i+1)+prefix)
-            else:
-                child.show(prefix=prefix)
-
-def ChatTree(map, id, root=None):
-    node = map.get(id)
-    message = node.get("message", {})
-    msgText = None
-    content = message.get("content", {}) if message else None
-    if content and (content.get("content_type", "") == "text" or content.get("content_type", "") == "multimodal_text"):
-        parts = content.get("parts", [])
-        if isinstance(parts, list):
-            msgText = '\n'.join(part if isinstance(part, str) else "file" for part in parts)
-    role = None
-    if message:
-        role = message.get("author", {}).get("role", "") if message.get("author", {}) else None
-    if root is None:
-        root = TreeNode(id, role, msgText)
-    
-    if node:
-        children = node.get("children", [])
-        for child_id in children:
-            child = map.get(child_id)
-            child_message = child.get("message", {})
-            child_msgText = None
-            content = child.get("message", {}).get("content", {}) if child.get("message", {}) else None
-            if content and (content.get("content_type", "") == "text" or content.get("content_type", "") == "multimodal_text"):
-                parts = content.get("parts", [])
-                if isinstance(parts, list):
-                    child_msgText = '\n'.join(part if isinstance(part, str) else "file" for part in parts)
-            child_role = None
-            if child_message:
-                child_role = child_message.get("author", {}).get("role", "") if child_message.get("author", {}) else None
-            
-            child_node = TreeNode(child_id, child_role, child_msgText)
-            root.add_child(child_node)
-            ChatTree(map, child_id, child_node)
-    
-    return root
 
 def getConversationMessages(conversation):
     messages = []
@@ -89,9 +29,11 @@ def getConversationMessages(conversation):
                 parts = []
                 for i in range(len(node_content_parts)):
                     part = node_content["parts"][i]
-                    if type(part == str and len(part) > 0):
+                    if isinstance(part, str) and len(part) > 0:
                         parts.append({"text": part})
-                    elif part["content_type"] == "audio_transcription":
+                    elif isinstance(part, str) and len(part) == 0:
+                        continue
+                    elif part.get("content_type", "") == "audio_transcription":
                         parts.append({"transcript": part["text"]})
                     elif (part["content_type"] == "audio_asset_pointer" or
                           part["content_type"] == "image_asset_pointer" or
@@ -105,19 +47,68 @@ def getConversationMessages(conversation):
                         for j in range(len(part.get("frames_asset_pointers", {}))):
                             parts.append({"asset": part["frames_asset_pointers"][j]})
                 if len(parts) > 0:
-                    messages.append({"author": author, "parts": parts})
+                    messages.append({
+                        "title": conversation.get("title", ""),
+                        "conversation_id": conversation.get("conversation_id", ""),
+                        "message_id": node.get("id", ""),
+                        "parent": node.get("parent", ""),
+                        "children": node.get("children", []),
+                        "author": author, 
+                        "parts": parts})
         currentNode = node["parent"]
     messages.reverse()
     return messages
 
+def chunk_text(text: str, tokenizer, max_tokens=400):
+    words = text.split()
+    chunks = []
+    current_chunk = []
 
+    for word in words:
+        current_chunk.append(word)
+        tokenized = tokenizer.tokenize(" ".join(current_chunk))
+        if len(tokenized) >= max_tokens:
+            chunks.append(" ".join(current_chunk))
+            current_chunk = []
 
+    if current_chunk:
+        chunks.append(" ".join(current_chunk))
+
+    return chunks
+
+def prepare_message_vector(text: str, tokenizer, model):
+    token_count = len(tokenizer.tokenize(text))
+    if token_count > 400:
+        chunks = chunk_text(text, tokenizer)
+        vectors = model.encode(chunks)
+        return np.mean(vectors, axis=0).tolist()
+    else:
+        return model.encode(text).tolist()
+
+tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
 with open("example.json", "r") as f:
     data = json.load(f)
-    # chat: TreeNode = TreeNode("client-created-root")
-    # chat: TreeNode = ChatTree(data["mapping"], "client-created-root")
-    # print(data["title"])
-    # chat.show()
     messages = getConversationMessages(data)
-    print(messages)
+
+with open(rf"C:/Code/fx/treegpt/gptchats/conversations.json", "r") as jsn:
+    data = json.load(jsn)
+
+    messages = []
+    for conversation in data[:10]:
+        print(conversation.get("title", ""))
+        messages.extend(getConversationMessages(conversation))
+    
+    for msg in messages:
+        try:
+            text = '\n'.join(part['text'] for part in msg["parts"] if isinstance(part.get('text', None), str))
+            if text:
+                msg["vector"] = prepare_message_vector(text, tokenizer, model)
+        except TypeError as e:
+            print(f"ERROR with {msg.get('message_id', msg.get('id'))} in chat: {msg.get('conversation_id', '#')} error: {e}")
+
+with open("prepared_messages.json", "w", encoding="utf-8") as f:
+    json.dump(messages, f, indent=2, ensure_ascii=False)
+
+print("✅ Готово! Сообщения обработаны и готовы к кластеризации.")
