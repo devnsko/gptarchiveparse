@@ -1,4 +1,5 @@
 import json
+from sentence_transformers import SentenceTransformer
 
 class TreeNode:
     def __init__(self, id: str, role: str | None = None, message: str | None = None):
@@ -75,38 +76,39 @@ def getConversationMessages(conversation):
             node_content and 
             node_content_parts and
             len(node_content_parts) > 0 and
-            (node_message["author"]["role"] is not "system" or 
+            (node_message["author"]["role"] != "system" or 
              node_message["metadata"].get("is_user_system_message", False))):
             
             author = node_message["author"]["role"]
-            if author is "assistant" or author is "tool":
+            if author == "assistant" or author == "tool":
                 author = "ChatGPT"
-            elif author is "system" and node_message["metadata"].get("is_user_system_message", False):
+            elif author == "system" and node_message["metadata"].get("is_user_system_message", False):
                 author = "Custom user info"
             
-            if node_content["content_type"] is "text" or  node_content["content_type"] is "multimodal_text":
+            if node_content["content_type"] == "text" or  node_content["content_type"] == "multimodal_text":
                 parts = []
                 for i in range(len(node_content_parts)):
                     part = node_content["parts"][i]
-                    if type(part is str and len(part) > 0):
+                    if type(part == str and len(part) > 0):
                         parts.append({"text": part})
-                    elif part["content_type"] is "audio_transcription":
+                    elif part["content_type"] == "audio_transcription":
                         parts.append({"transcript": part["text"]})
-                    elif (part["content_type"] is "audio_asset_pointer" or
-                          part["content_type"] is "image_asset_pointer" or
-                          part["content_type"] is "video_container_asset_pointer"):
+                    elif (part["content_type"] == "audio_asset_pointer" or
+                          part["content_type"] == "image_asset_pointer" or
+                          part["content_type"] == "video_container_asset_pointer"):
                         parts.append({"asset": part})
-                    elif part["content_type"] is "real_time_user_audio_video_asset_pointer":
+                    elif part["content_type"] == "real_time_user_audio_video_asset_pointer":
                         if part.get("audio_asset_pointer", False):
                             parts.append({"asset": part["audio_asset_pointer"]})
                         if part.get("video_container_asset_pointer", False):
                             parts.append({"asset": part["video_container_asset_pointer"]})
                         for j in range(len(part.get("frames_asset_pointers", {}))):
                             parts.append({"asset": part["frames_asset_pointers"][j]})
-            if len(parts) > 0:
-                messages.append({"author": author, "parts": parts})
+                if len(parts) > 0:
+                    messages.append({"author": author, "parts": parts})
         currentNode = node["parent"]
-    return messages.reverse()
+    messages.reverse()
+    return messages
 
 
 
@@ -114,6 +116,8 @@ def getConversationMessages(conversation):
 with open("example.json", "r") as f:
     data = json.load(f)
     # chat: TreeNode = TreeNode("client-created-root")
-    chat: TreeNode = ChatTree(data["mapping"], "client-created-root")
-    print(data["title"])
-    chat.show()
+    # chat: TreeNode = ChatTree(data["mapping"], "client-created-root")
+    # print(data["title"])
+    # chat.show()
+    messages = getConversationMessages(data)
+    print(messages)
