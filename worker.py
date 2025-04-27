@@ -1,8 +1,37 @@
-import re
+
 import json
 import numpy as np
 from transformers import AutoTokenizer
 from sentence_transformers import SentenceTransformer
+
+INPUT_FILE = fr"../fx/treegpt/gptchats/conversations.json"
+OUTPUT_FILE = "prepared_messages.json"
+MAX_TOKENS = 400
+
+tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
+model = SentenceTransformer("all-MiniLM-L6-v2")
+
+def chunk_text(text, tokenizer, max_tokens=MAX_TOKENS):
+    words = text.split()
+    chunks, current = [], []
+
+    for word in words:
+        current.append(word)
+        if len(tokenizer.tokenize(" ".join(current))) >= max_tokens:
+            chunks.append(" ".join(current))
+            current = []
+    if current:
+        chunks.append(" ".join(current))
+    return chunks
+
+def prepare_vector(text):
+    token_count = len(tokenizer.tokenize(text))
+    if token_count > MAX_TOKENS:
+        chunks = chunk_text(text, tokenizer)
+        chunk_vecs = model.encode(chunks)
+        return np.mean(chunk_vecs, axis=0).tolist()
+    else:
+        return model.encode(text).tolist()
 
 def getConversationMessages(conversation):
     messages = []
@@ -59,56 +88,22 @@ def getConversationMessages(conversation):
     messages.reverse()
     return messages
 
-def chunk_text(text: str, tokenizer, max_tokens=400):
-    words = text.split()
-    chunks = []
-    current_chunk = []
+with open(INPUT_FILE, "r", encoding="utf-8") as f:
+    conversations = json.load(f)
 
-    for word in words:
-        current_chunk.append(word)
-        tokenized = tokenizer.tokenize(" ".join(current_chunk))
-        if len(tokenized) >= max_tokens:
-            chunks.append(" ".join(current_chunk))
-            current_chunk = []
+all_messages = []
+for i, convo in enumerate(conversations[:20]):
+    all_messages += getConversationMessages(convo)
 
-    if current_chunk:
-        chunks.append(" ".join(current_chunk))
+for msg in all_messages:
+    try:
+        text = '\n'.join(part['text'] for part in msg["parts"] if isinstance(part.get('text', None), str))
+        if text:
+            msg["vector"] = prepare_vector(text)
+    except Exception as e:
+        print(f"[Ошибка] в сообщении {msg.get('message_id')}: {e}")
 
-    return chunks
+with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+    json.dump(all_messages, f, indent=2, ensure_ascii=False)
 
-def prepare_message_vector(text: str, tokenizer, model):
-    token_count = len(tokenizer.tokenize(text))
-    if token_count > 400:
-        chunks = chunk_text(text, tokenizer)
-        vectors = model.encode(chunks)
-        return np.mean(vectors, axis=0).tolist()
-    else:
-        return model.encode(text).tolist()
-
-tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
-model = SentenceTransformer("all-MiniLM-L6-v2")
-
-with open("example.json", "r") as f:
-    data = json.load(f)
-    messages = getConversationMessages(data)
-
-with open(rf"C:/Code/fx/treegpt/gptchats/conversations.json", "r") as jsn:
-    data = json.load(jsn)
-
-    messages = []
-    for conversation in data[:10]:
-        print(conversation.get("title", ""))
-        messages.extend(getConversationMessages(conversation))
-    
-    for msg in messages:
-        try:
-            text = '\n'.join(part['text'] for part in msg["parts"] if isinstance(part.get('text', None), str))
-            if text:
-                msg["vector"] = prepare_message_vector(text, tokenizer, model)
-        except TypeError as e:
-            print(f"ERROR with {msg.get('message_id', msg.get('id'))} in chat: {msg.get('conversation_id', '#')} error: {e}")
-
-with open("prepared_messages.json", "w", encoding="utf-8") as f:
-    json.dump(messages, f, indent=2, ensure_ascii=False)
-
-print("✅ Готово! Сообщения обработаны и готовы к кластеризации.")
+print("[Success] Сообщения обработаны и сохранены в", OUTPUT_FILE)
