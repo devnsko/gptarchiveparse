@@ -3,9 +3,10 @@ import json
 import numpy as np
 from transformers import AutoTokenizer
 from sentence_transformers import SentenceTransformer
+import os
 
-INPUT_FILE = fr"../fx/treegpt/gptchats/conversations.json"
-OUTPUT_FILE = "prepared_messages.json"
+INPUT_FILE = fr"unzipped/conversations.json"
+OUTPUT_FILE = "graphs/prepared_messages.json"
 MAX_TOKENS = 400
 
 tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
@@ -41,6 +42,7 @@ def getConversationMessages(conversation):
         node_message = node.get("message", {})
         node_content = node_message.get("content", {}) if node_message else None
         node_content_parts = node_content.get("parts", "") if node_content else None
+        print(node.get("id", "-"))
         if (node_message and 
             node_content and 
             node_content_parts and
@@ -88,7 +90,8 @@ def getConversationMessages(conversation):
     messages.reverse()
     return messages
 
-with open(INPUT_FILE, "r", encoding="utf-8") as f:
+input_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *INPUT_FILE.replace("\\", "/").split("/"))
+with open(input_file_path, "r", encoding="utf-8") as f:
     conversations = json.load(f)
 
 all_messages = []
@@ -103,7 +106,8 @@ for msg in all_messages:
     except Exception as e:
         print(f"[Ошибка] в сообщении {msg.get('message_id')}: {e}")
 
-with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+output_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *OUTPUT_FILE.replace("\\", "/").split("/"))
+with open(output_file_path, "w", encoding="utf-8") as f:
     json.dump(all_messages, f, indent=2, ensure_ascii=False)
 
 print("[Success] Сообщения обработаны и сохранены в", OUTPUT_FILE)
