@@ -4,6 +4,7 @@ import numpy as np
 from transformers import AutoTokenizer
 from sentence_transformers import SentenceTransformer
 import os
+from Message import Message, MessageVectors, MessageManager
 
 INPUT_FILE = fr"unzipped/conversations.json"
 OUTPUT_FILE = "graphs/prepared_messages.json"
@@ -25,6 +26,10 @@ def chunk_text(text, tokenizer, max_tokens=MAX_TOKENS):
         chunks.append(" ".join(current))
     return chunks
 
+def get_message_text(msg) -> str:
+    text = '\n'.join(part['text'] for part in msg["parts"] if isinstance(part.get('text', None), str))
+    return text
+
 def prepare_vector(text):
     token_count = len(tokenizer.tokenize(text))
     if token_count > MAX_TOKENS:
@@ -35,7 +40,7 @@ def prepare_vector(text):
         return model.encode(text).tolist()
 
 def getConversationMessages(conversation):
-    messages = []
+    messages: list[Message] = []
     currentNode = conversation.get("current_node", {})
     while currentNode is not None:
         node = conversation["mapping"][currentNode]
@@ -78,14 +83,16 @@ def getConversationMessages(conversation):
                         for j in range(len(part.get("frames_asset_pointers", {}))):
                             parts.append({"asset": part["frames_asset_pointers"][j]})
                 if len(parts) > 0:
-                    messages.append({
-                        "title": conversation.get("title", ""),
-                        "conversation_id": conversation.get("conversation_id", ""),
-                        "message_id": node.get("id", ""),
-                        "parent": node.get("parent", ""),
-                        "children": node.get("children", []),
-                        "author": author, 
-                        "parts": parts})
+                    newmsg = Message(
+                        id=node.get("id", ""),
+                        conversation_id=conversation.get("conversation_id", ""),
+                        title=conversation.get("title", ""),
+                        author=author,
+                        parts=parts,
+                        parent=node.get("parent", ""),
+                        children=node.get("children", [])
+                    )
+                    messages.append(newmsg)
         currentNode = node["parent"]
     messages.reverse()
     return messages
@@ -94,20 +101,31 @@ input_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *INPUT_FILE.
 with open(input_file_path, "r", encoding="utf-8") as f:
     conversations = json.load(f)
 
-all_messages = []
-for i, convo in enumerate(conversations[:20]):
-    all_messages += getConversationMessages(convo)
+# TODO: Combine pairs with question and answer
+manager: MessageManager = MessageManager()
 
-for msg in all_messages:
+all_messages_vectors: list[MessageVectors] = []
+for i, convo in enumerate(conversations[:30]):
+    newmsgs = getConversationMessages(convo)
+    manager.addMessages(newmsgs)
+
+for msg in manager.getAllMessages():
     try:
-        text = '\n'.join(part['text'] for part in msg["parts"] if isinstance(part.get('text', None), str))
+        if msg.author is not 'ChatGPT':
+            continue
+        text = get_message_text(msg)
+        if msg.parent:
+            parent = manager.getMessageByID(msg.parent)
+            text = get_message_text(parent) + "\n" + text
+
         if text:
-            msg["vector"] = prepare_vector(text)
+            vectors = prepare_vector(text)
+
     except Exception as e:
         print(f"[Ошибка] в сообщении {msg.get('message_id')}: {e}")
 
 output_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *OUTPUT_FILE.replace("\\", "/").split("/"))
 with open(output_file_path, "w", encoding="utf-8") as f:
-    json.dump(all_messages, f, indent=2, ensure_ascii=False)
+    json.dump(manager.getAllMessages(), f, indent=2, ensure_ascii=False)
 
 print("[Success] Сообщения обработаны и сохранены в", OUTPUT_FILE)

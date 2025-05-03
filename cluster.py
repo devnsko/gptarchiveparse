@@ -1,14 +1,16 @@
 import json
+import os
 import numpy as np
 import pandas as pd
 import umap
 from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_distances
 
-INPUT_FILE = "prepared_messages.json"
-OUTPUT_FILE = "graph_data.json"
+INPUT_FILE = "graphs/prepared_messages.json"
+OUTPUT_FILE_START_NAME = "graph_data_"
 
-with open(INPUT_FILE, "r", encoding="utf-8") as f:
+input_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *INPUT_FILE.replace("\\", "/").split("/"))
+with open(input_file_path, "r", encoding="utf-8") as f:
     messages = json.load(f)
 
 vectors = []
@@ -42,7 +44,8 @@ for i, item in enumerate(graph_data):
         "z": float(projected[i][2])
     }
 
-with open(OUTPUT_FILE, "w", encoding="utf-8") as f:
+output_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', 'graphs', OUTPUT_FILE_START_NAME + 'latest.json')
+with open(output_file_path, "w", encoding="utf-8") as f:
     json.dump(graph_data, f, indent=2, ensure_ascii=False)
 
-print("✅ Готово: данные для графа сохранены в", OUTPUT_FILE)
+print("✅ Готово: данные для графа сохранены в", output_file_path)
