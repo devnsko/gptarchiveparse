@@ -33,10 +33,10 @@ def get_message_text(msg: Message) -> str:
     return text
 
 def get_parent_user(id: str) -> Message:
-    if id is None: 
-        return None
     msg = manager.getMessageByID(id)
-    if msg.author.lower() in ["Custom user info", "ChatGPT"]:
+    if msg is None:
+        return None
+    if msg.author in ["Custom user info", "ChatGPT"]:
         msg = get_parent_user(msg.parent)
     return msg
 
@@ -135,10 +135,10 @@ for msg in manager.getAllMessages():
             vectorManager.addVectors(parent=parent, child=msg, vectors=vectors)
 
     except Exception as e:
-        print(f"[Ошибка] в сообщении {msg.get('message_id')}: {e}")
+        print(f"[Ошибка] в сообщении {msg.message_id}: {e}")
 
 output_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *OUTPUT_FILE.replace("\\", "/").split("/"))
 with open(output_file_path, "w", encoding="utf-8") as f:
-    json.dump(VectorsManager.getAllVectors(), f, indent=4, ensure_ascii=False)
+    json.dump([vec.to_dict() for vec in vectorManager.getAllVectors()], f, indent=4, ensure_ascii=False)
 
 print("[Success] Сообщения обработаны и сохранены в", OUTPUT_FILE)

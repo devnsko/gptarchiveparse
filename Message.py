@@ -17,11 +17,30 @@ class Message:
         self.author: str = author
         self.parts: list[any] = parts
 
+    def to_dict(self):
+        return {
+            "message_id": self.message_id,
+            "conversation_id": self.conversation_id,
+            "conversation_title": self.conversation_title,
+            "parent": self.parent,
+            "children": self.children,
+            "author": self.author,
+            "parts": self.parts,
+        }
+
 class MessageVectors:
     def __init__(self, parent: Message, child: Message, vectors: list[any]):
         self.parent = parent
         self.child = child
         self.vectors = vectors
+
+    def to_dict(self):
+        return {
+            "parent": self.parent.to_dict() if self.parent else None,
+            "child": self.child.to_dict(),
+            "vectors": self.vectors
+        }
+
     
 class VectorsManager:
     vectors: list[MessageVectors] = []
@@ -63,7 +82,9 @@ class MessageManager:
     def addMessages(self, messages: list[Message]):
         self.messages.extend(messages)
 
-    def getMessageByID(self, id: str):
+    def getMessageByID(self, id: str) -> Message | None:
+        if id is None or not id:
+            return None
         for msg in self.messages:
             if msg.message_id == id:
                 return msg
