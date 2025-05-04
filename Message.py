@@ -1,3 +1,10 @@
+from typing import TypedDict
+
+class Position3D(TypedDict):
+    x: float
+    y: float
+    z: float
+
 class Message:
     # message_id: str
     # conversation_id: str
@@ -41,6 +48,16 @@ class MessageVectors:
             "vectors": self.vectors
         }
 
+class GraphNode:
+    def __init__(self, prompt, reply, title, conversation_id, parent_id, children_id, cluster, position):
+        self.prompt: Message = prompt
+        self.reply: Message = reply
+        self.title: str = title
+        self.conversation_id: str = conversation_id
+        self.parent_id: str = parent_id
+        self.children_id: str = children_id
+        self.cluster: int = cluster
+        self.position: Position3D = position
     
 class VectorsManager:
     vectors: list[MessageVectors] = []
