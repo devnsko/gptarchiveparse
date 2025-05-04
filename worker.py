@@ -4,10 +4,10 @@ import numpy as np
 from transformers import AutoTokenizer
 from sentence_transformers import SentenceTransformer
 import os
-from Message import Message, MessageVectors, MessageManager
+from Message import Message, MessageVectors, MessageManager, VectorsManager
 
 INPUT_FILE = fr"unzipped/conversations.json"
-OUTPUT_FILE = "graphs/prepared_messages.json"
+OUTPUT_FILE = "graphs/prepared_messages_v2.json"
 MAX_TOKENS = 400
 
 tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
@@ -26,8 +26,10 @@ def chunk_text(text, tokenizer, max_tokens=MAX_TOKENS):
         chunks.append(" ".join(current))
     return chunks
 
-def get_message_text(msg) -> str:
-    text = '\n'.join(part['text'] for part in msg["parts"] if isinstance(part.get('text', None), str))
+def get_message_text(msg: Message) -> str:
+    if msg is None:
+        return ""
+    text = '\n'.join(part['text'] for part in msg.parts if isinstance(part.get('text', None), str))
     return text
 
 def get_parent_user(id: str) -> Message:
@@ -106,6 +108,7 @@ def getConversationMessages(conversation):
     return messages
 
 manager: MessageManager = MessageManager()
+vectorManager: VectorsManager = VectorsManager()
 
 input_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *INPUT_FILE.replace("\\", "/").split("/"))
 with open(input_file_path, "r", encoding="utf-8") as f:
@@ -120,7 +123,7 @@ for i, convo in enumerate(conversations[:30]):
 
 for msg in manager.getAllMessages():
     try:
-        if msg.author is not 'ChatGPT':
+        if msg.author != 'ChatGPT':
             continue
         text = get_message_text(msg)
         parent: Message = get_parent_user(msg.parent)
@@ -129,12 +132,13 @@ for msg in manager.getAllMessages():
 
         if text:
             vectors = prepare_vector(text)
+            vectorManager.addVectors(parent=parent, child=msg, vectors=vectors)
 
     except Exception as e:
         print(f"[Ошибка] в сообщении {msg.get('message_id')}: {e}")
 
 output_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *OUTPUT_FILE.replace("\\", "/").split("/"))
 with open(output_file_path, "w", encoding="utf-8") as f:
-    json.dump(manager.getAllMessages(), f, indent=2, ensure_ascii=False)
+    json.dump(VectorsManager.getAllVectors(), f, indent=4, ensure_ascii=False)
 
 print("[Success] Сообщения обработаны и сохранены в", OUTPUT_FILE)

@@ -18,9 +18,38 @@ class Message:
         self.parts: list[any] = parts
 
 class MessageVectors:
-    def __init__(self, message: Message, vectors: list[any]):
-        self.message = message
+    def __init__(self, parent: Message, child: Message, vectors: list[any]):
+        self.parent = parent
+        self.child = child
         self.vectors = vectors
+    
+class VectorsManager:
+    vectors: list[MessageVectors] = []
+
+    def __init__(self, messages: list[MessageVectors] = []):
+        self.vectors = messages
+
+    def addVectors(self, parent: Message, child: Message, vectors: list[any]):
+        msg = MessageVectors(parent=parent, child=child, vectors=vectors)
+        self.vectors.append(msg)
+
+    def getVectorByChildId(self, id: str) -> MessageVectors | None:
+        for msg in self.vectors:
+            if msg.child.message_id == id:
+                return msg
+        print(f"[Not Found] message vectors by child id: {id}")
+        return None
+
+    def getVectorByParentId(self, id: str) -> MessageVectors | None:
+        for msg in self.vectors:
+            if msg.parent.message_id == id:
+                return msg
+        print(f"[Not Found] message vectors by parent id: {id}")
+        return None
+    
+    def getAllVectors(self) -> list[MessageVectors]:
+        return self.vectors
+
 
 class MessageManager:
     messages: list[Message] = []
