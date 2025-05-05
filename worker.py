@@ -1,22 +1,27 @@
-
 import json
+import os
 import numpy as np
 from transformers import AutoTokenizer
 from sentence_transformers import SentenceTransformer
-import os
+import umap
+from sklearn.cluster import KMeans
+
 from Message import Message, MessageVectors, MessageManager, VectorsManager
 
-INPUT_FILE = fr"unzipped/conversations.json"
-OUTPUT_FILE = "graphs/prepared_messages_v2.json"
+# Configurable paths
+INPUT_FILE = os.path.join(os.path.expanduser("~"), '.treegpt', 'unzipped', 'conversations.json')
+OUTPUT_VECTORS_FILE = os.path.join(os.path.expanduser("~"), '.treegpt', 'graphs', 'prepared_messages_v2.json')
+OUTPUT_GRAPH_FILE = os.path.join(os.path.expanduser("~"), '.treegpt', 'graphs', 'graph_data_combined.json')
 MAX_TOKENS = 400
+N_CLUSTERS = 15
 
+# Initialize models
 tokenizer = AutoTokenizer.from_pretrained("sentence-transformers/all-MiniLM-L6-v2")
 model = SentenceTransformer("all-MiniLM-L6-v2")
 
-def chunk_text(text, tokenizer, max_tokens=MAX_TOKENS):
+def chunk_text(text: str, tokenizer, max_tokens: int = MAX_TOKENS) -> list[str]:
     words = text.split()
     chunks, current = [], []
-
     for word in words:
         current.append(word)
         if len(tokenizer.tokenize(" ".join(current))) >= max_tokens:
@@ -27,118 +32,133 @@ def chunk_text(text, tokenizer, max_tokens=MAX_TOKENS):
     return chunks
 
 def get_message_text(msg: Message) -> str:
-    if msg is None:
+    if not msg or not msg.parts:
         return ""
-    text = '\n'.join(part['text'] for part in msg.parts if isinstance(part.get('text', None), str))
-    return text
+    return '\n'.join(p['text'] for p in msg.parts if 'text' in p)
 
-def get_parent_user(id: str | None) -> Message | None:
-    while id:
-        msg = manager.getMessageByID(id)
-        if msg is None:
+
+def get_parent_user(message_id: str | None, manager: MessageManager) -> Message | None:
+    # Walk up until find the first user message
+    current_id = message_id
+    while current_id:
+        msg = manager.getMessageByID(current_id)
+        if not msg:
             return None
-        if msg.author == "user":
+        if msg.author.lower() == 'user':
             return msg
-        id = msg.parent
+        current_id = msg.parent
     return None
 
-def prepare_vector(text):
-    token_count = len(tokenizer.tokenize(text))
-    if token_count > MAX_TOKENS:
+def prepare_vector(text: str) -> list[float]:
+    tokens = tokenizer.tokenize(text)
+    if len(tokens) > MAX_TOKENS:
         chunks = chunk_text(text, tokenizer)
         chunk_vecs = model.encode(chunks)
         return np.mean(chunk_vecs, axis=0).tolist()
-    else:
-        return model.encode(text).tolist()
+    return model.encode(text).tolist()
 
-def getConversationMessages(conversation):
-    messages: list[Message] = []
-    currentNode = conversation.get("current_node", {})
-    while currentNode is not None:
-        node = conversation["mapping"][currentNode]
-        node_message = node.get("message", {})
-        node_content = node_message.get("content", {}) if node_message else None
-        node_content_parts = node_content.get("parts", "") if node_content else None
-        print(node.get("id", "-"))
-        if (node_message and 
-            node_content and 
-            node_content_parts and
-            len(node_content_parts) > 0 and
-            (node_message["author"]["role"] != "system" or 
-             node_message["metadata"].get("is_user_system_message", False))):
-            
-            author = node_message["author"]["role"]
-            if author == "assistant" or author == "tool":
-                author = "ChatGPT"
-            elif author == "system" and node_message["metadata"].get("is_user_system_message", False):
-                author = "Custom user info"
-            
-            if node_content["content_type"] == "text" or  node_content["content_type"] == "multimodal_text":
-                parts = []
-                for i in range(len(node_content_parts)):
-                    part = node_content["parts"][i]
-                    if isinstance(part, str) and len(part) > 0:
-                        parts.append({"text": part})
-                    elif isinstance(part, str) and len(part) == 0:
-                        continue
-                    elif part.get("content_type", "") == "audio_transcription":
-                        parts.append({"transcript": part["text"]})
-                    elif (part["content_type"] == "audio_asset_pointer" or
-                          part["content_type"] == "image_asset_pointer" or
-                          part["content_type"] == "video_container_asset_pointer"):
-                        parts.append({"asset": part})
-                    elif part["content_type"] == "real_time_user_audio_video_asset_pointer":
-                        if part.get("audio_asset_pointer", False):
-                            parts.append({"asset": part["audio_asset_pointer"]})
-                        if part.get("video_container_asset_pointer", False):
-                            parts.append({"asset": part["video_container_asset_pointer"]})
-                        for j in range(len(part.get("frames_asset_pointers", {}))):
-                            parts.append({"asset": part["frames_asset_pointers"][j]})
-                if len(parts) > 0:
-                    newmsg = Message(
-                        id=node.get("id", ""),
-                        conversation_id=conversation.get("conversation_id", ""),
-                        title=conversation.get("title", ""),
-                        author=author,
-                        parts=parts,
-                        parent=node.get("parent", ""),
-                        children=node.get("children", [])
-                    )
-                    messages.append(newmsg)
-        currentNode = node["parent"]
-    messages.reverse()
-    return messages
+def getConversationMessages(conversation: dict) -> list[Message]:
+    manager_msgs: list[Message] = []
+    # Traverse chain to collect all nodes in this conversation
+    current = conversation.get('current_node')
+    while current:
+        node = conversation['mapping'].get(current)
+        if not node:
+            break
+        nm = node.get('message') or {}
+        # Determine author
+        role = nm.get('author', {}).get('role', '')
+        if role in ('assistant', 'tool'):
+            author = 'ChatGPT'
+        elif role == 'system' and nm.get('metadata', {}).get('is_user_system_message', False):
+            author = 'Custom user info'
+        else:
+            author = role
+        # Extract parts
+        parts = []
+        content = nm.get('content', {})
+        for part in content.get('parts', []):
+            # first handle dicts
+            if isinstance(part, dict) and part.get('content_type') == 'audio_transcription':
+                parts.append({'text': part.get('text', '')})
+            # then non-empty strings
+            elif isinstance(part, str) and part:
+                parts.append({'text': part})
+            # else ignore empty strings or unexpected types
+        # Build Message
+        msg = Message(
+            id=node.get('id', ''),
+            conversation_id=conversation.get('conversation_id', ''),
+            title=conversation.get('title', ''),
+            author=author,
+            parts=parts,
+            parent=node.get('parent'),
+            children=node.get('children', [])
+        )
+        manager_msgs.append(msg)
+        current = node.get('parent')
+    manager_msgs.reverse()
+    return manager_msgs
 
-manager: MessageManager = MessageManager()
-vectorManager: VectorsManager = VectorsManager()
+def cluster_vectors(vecs: list[MessageVectors]) -> list[dict]:
+    # Prepare data and initial graph entries
+    data = []
+    graph = []
+    for mv in vecs:
+        if mv.vectors:
+            data.append(mv.vectors)
+            graph.append({
+                'prompt': mv.parent.to_dict() if mv.parent else None,
+                'reply': mv.child.to_dict(),
+                'title': mv.child.conversation_title,
+                'conversation_id': mv.child.conversation_id,
+                'parent_id': mv.parent.parent if mv.parent else None,
+                'children_id': mv.child.children
+            })
+    X = np.array(data)
+    umap_3d = umap.UMAP(n_components=3, metric='cosine', n_neighbors=10)
+    proj = umap_3d.fit_transform(X)
+    kmeans = KMeans(n_clusters=N_CLUSTERS, random_state=42).fit(proj)
+    for i, item in enumerate(graph):
+        item['cluster'] = int(kmeans.labels_[i])
+        x, y, z = proj[i]
+        item['position'] = {'x': float(x), 'y': float(y), 'z': float(z)}
+    return graph
 
-input_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *INPUT_FILE.replace("\\", "/").split("/"))
-with open(input_file_path, "r", encoding="utf-8") as f:
-    conversations = json.load(f)
+if __name__ == '__main__':
+    # Initialize managers
+    msg_manager = MessageManager()
+    vec_manager = VectorsManager()
 
-all_messages_vectors: list[MessageVectors] = []
-for i, convo in enumerate(conversations[:30]):
-    newmsgs = getConversationMessages(convo)
-    manager.addMessages(newmsgs)
+    # Load raw conversations
+    with open(INPUT_FILE, 'r', encoding='utf-8') as f:
+        convos = json.load(f)
 
-for msg in manager.getAllMessages():
-    try:
+    # First pass: collect all messages
+    for convo in convos:
+        msgs = getConversationMessages(convo)
+        msg_manager.addMessages(msgs)
+
+    # Second pass: vectorize ChatGPT replies with user context
+    for msg in msg_manager.getAllMessages():
         if msg.author != 'ChatGPT':
             continue
         text = get_message_text(msg)
-        parent: Message = get_parent_user(msg.parent)
-        if parent and len(get_message_text(parent)) > 0:
-            text = get_message_text(parent) + "\n" + text
+        parent = get_parent_user(msg.parent, msg_manager)
+        if parent and get_message_text(parent):
+            text = get_message_text(parent) + '\n' + text
+        if not text:
+            continue
+        vec = prepare_vector(text)
+        vec_manager.addVectors(parent=parent, child=msg, vectors=vec)
 
-        if text:
-            vectors = prepare_vector(text)
-            vectorManager.addVectors(parent=parent, child=msg, vectors=vectors)
+    # Save prepared vectors
+    with open(OUTPUT_VECTORS_FILE, 'w', encoding='utf-8') as f:
+        json.dump([mv.to_dict() for mv in vec_manager.getAllVectors()], f, indent=2, ensure_ascii=False)
 
-    except Exception as e:
-        print(f"[Ошибка] в сообщении {msg.message_id}: {e}")
+    # Cluster and save graph data
+    graph_data = cluster_vectors(vec_manager.getAllVectors())
+    with open(OUTPUT_GRAPH_FILE, 'w', encoding='utf-8') as f:
+        json.dump(graph_data, f, indent=2, ensure_ascii=False)
 
-output_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *OUTPUT_FILE.replace("\\", "/").split("/"))
-with open(output_file_path, "w", encoding="utf-8") as f:
-    json.dump([vec.to_dict() for vec in vectorManager.getAllVectors()], f, indent=4, ensure_ascii=False)
-
-print("[Success] Сообщения обработаны и сохранены в", OUTPUT_FILE)
+    print(f"✅ Pipeline complete. Vectors: {OUTPUT_VECTORS_FILE}, Graph: {OUTPUT_GRAPH_FILE}")
