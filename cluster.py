@@ -5,7 +5,7 @@ import pandas as pd
 import umap
 from sklearn.cluster import KMeans
 from sklearn.metrics.pairwise import cosine_distances
-from Message import MessageVectors, VectorsManager
+from Message import MessageVectors, VectorsManager, Message
 
 INPUT_FILE = "graphs/prepared_messages_v2.json"
 OUTPUT_FILE_START_NAME = "graph_data_"
@@ -39,11 +39,11 @@ for msg in messages:
     if msg.vectors and len(msg.vectors) > 0:
         vectors.append(msg.vectors)
         graph_data.append({
-            "propmt": msg.parent,
-            "reply": msg.child,
+            "prompt": msg.parent.to_dict() if msg.parent else None,
+            "reply": msg.child.to_dict(),
             "title": msg.child.conversation_title,
             "conversation_id": msg.child.conversation_id,
-            "parent_id": msg.parent.parent,
+            "parent_id": msg.parent.parent if msg.parent else None,
             "children_id": msg.child.children
         })
 

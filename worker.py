@@ -32,13 +32,15 @@ def get_message_text(msg: Message) -> str:
     text = '\n'.join(part['text'] for part in msg.parts if isinstance(part.get('text', None), str))
     return text
 
-def get_parent_user(id: str) -> Message:
-    msg = manager.getMessageByID(id)
-    if msg is None:
-        return None
-    if msg.author in ["Custom user info", "ChatGPT"]:
-        msg = get_parent_user(msg.parent)
-    return msg
+def get_parent_user(id: str | None) -> Message | None:
+    while id:
+        msg = manager.getMessageByID(id)
+        if msg is None:
+            return None
+        if msg.author == "user":
+            return msg
+        id = msg.parent
+    return None
 
 def prepare_vector(text):
     token_count = len(tokenizer.tokenize(text))
@@ -113,8 +115,6 @@ vectorManager: VectorsManager = VectorsManager()
 input_file_path = os.path.join(os.path.expanduser("~"), '.treegpt', *INPUT_FILE.replace("\\", "/").split("/"))
 with open(input_file_path, "r", encoding="utf-8") as f:
     conversations = json.load(f)
-
-# TODO: Combine pairs with question and answer
 
 all_messages_vectors: list[MessageVectors] = []
 for i, convo in enumerate(conversations[:30]):
